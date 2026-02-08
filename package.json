@@ -4,6 +4,7 @@
   "scripts": {
     "dev:backend": "cd backend/api && cargo run --bin grpc-server",
     "dev:frontend": "cd frontend && bun dev",
-    "dev": "concurrently \"bun run dev:backend\" \"bun run dev:frontend\""
+    "dev:worker": "cd backend/workers && cargo run --bin placeholder-worker",
+    "dev": "concurrently \"bun run dev:backend\" \"bun run dev:frontend\" \"bun run dev:worker\""
   }
 }

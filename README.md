@@ -60,11 +60,11 @@ cd frontend && bun install && cd ..
 # 4. Generate TypeScript types from protos
 cd frontend && bun run generate && cd ..
 
-# 5. Start both backend and frontend
+# 5. Start backend, frontend, and worker
 bun run dev
 ```
 
-The backend runs on `http://localhost:50060` (gRPC) and the frontend on `http://localhost:3000`. No Clerk account is needed -- auth is disabled by default (see [Enabling Auth](#enabling-auth)).
+This starts all three processes concurrently: the gRPC backend, the Nuxt frontend, and the sample background worker. The backend runs on `http://localhost:50060` (gRPC) and the frontend on `http://localhost:3000`. No Clerk account is needed -- auth is disabled by default (see [Enabling Auth](#enabling-auth)).
 
 ## Development
 
@@ -93,6 +93,34 @@ cd frontend
 bun run lint        # Check for issues
 bun run lint:fix    # Auto-fix issues
 ```
+
+### Workers
+
+Workers are long-running Rust binaries for background jobs (queue processing, scheduled tasks, cleanup routines, etc.). They live in `backend/workers/` and share the same `data` and `services` crates as the gRPC server.
+
+A sample `placeholder-worker` is included out of the box. It logs a heartbeat every 30 seconds and is started automatically by `bun run dev`:
+
+```bash
+# Run the worker standalone
+cd backend/workers && cargo run --bin placeholder-worker
+```
+
+#### Adding a new worker
+
+1. Add a `[[bin]]` entry to `backend/workers/Cargo.toml`:
+   ```toml
+   [[bin]]
+   name = "my-worker"
+   path = "src/my_worker.rs"
+   ```
+
+2. Create the source file at `backend/workers/src/my_worker.rs`.
+
+3. Add a dev script to the root `package.json` and include it in the `dev` command:
+   ```json
+   "dev:my-worker": "cd backend/workers && cargo run --bin my-worker",
+   "dev": "concurrently \"bun run dev:backend\" \"bun run dev:frontend\" \"bun run dev:worker\" \"bun run dev:my-worker\""
+   ```
 
 ## Project Structure
 

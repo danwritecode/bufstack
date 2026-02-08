@@ -7,6 +7,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     loop {
         tracing::info!("Worker heartbeat");
-        tokio::time::sleep(Duration::from_secs(60)).await;
+        tokio::time::sleep(Duration::from_secs(30)).await;
     }
 }
