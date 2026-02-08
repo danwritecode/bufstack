@@ -12,7 +12,7 @@ Bufstack is deliberately opinionated. Instead of giving you a blank canvas and i
 - **gRPC** (via Tonic) for backend services -- strongly typed, fast, streaming-capable RPCs instead of hand-rolled REST endpoints
 - **SQLx** with SQLite for data access -- compile-time checked SQL queries with zero overhead, no ORM magic
 - **Clerk** for authentication -- drop-in auth that handles JWTs, sessions, and user management so you never roll your own
-- **Tailwind CSS v4** for styling -- utility-first CSS that keeps your frontend moving fast
+- **Tailwind CSS v4** + **shadcn-vue** for styling -- utility-first CSS with a beautiful, accessible component library built on Reka UI primitives
 - **ConnectRPC** to bridge gRPC to the browser -- type-safe RPC calls from Vue components, generated from the same protos as the backend
 - **Docker** with cargo-chef for deployment -- reproducible builds with excellent layer caching
 
@@ -28,11 +28,11 @@ Backend    Frontend
 Tonic      ConnectRPC
 SQLx       Vue 3
 Clerk      Clerk
-           Tailwind
+           Tailwind + shadcn-vue
 ```
 
 - **Backend**: Rust with [Tonic](https://github.com/hyperium/tonic) gRPC + [SQLx](https://github.com/launchbadge/sqlx)/SQLite
-- **Frontend**: [Nuxt 4](https://nuxt.com) + Vue 3 + [Tailwind CSS v4](https://tailwindcss.com)
+- **Frontend**: [Nuxt 4](https://nuxt.com) + Vue 3 + [Tailwind CSS v4](https://tailwindcss.com) + [shadcn-vue](https://www.shadcn-vue.com/)
 - **Communication**: gRPC-Web via [ConnectRPC](https://connectrpc.com)
 - **Auth**: [Clerk](https://clerk.com) (ready to enable)
 - **Deployment**: Docker with [cargo-chef](https://github.com/LukeMathWalker/cargo-chef) caching
@@ -74,14 +74,38 @@ bufstack/
 │   └── workers/      # Background workers
 ├── frontend/
 │   ├── app/
+│   │   ├── components/ui/  # shadcn-vue components
 │   │   ├── composables/useGrpc.ts  # gRPC client composable
 │   │   ├── gen/      # Generated protobuf TypeScript
+│   │   ├── lib/utils.ts    # Tailwind class merge utility (cn)
 │   │   └── pages/    # Vue pages
 │   └── server/api/rpc/  # gRPC proxy route
 ├── protos/           # Protocol Buffer definitions (source of truth)
 ├── scripts/          # Build & deploy scripts
 └── .claude/skills/   # Claude Code skills (e.g. scaffold-entity)
 ```
+
+## Adding UI Components
+
+shadcn-vue components are added on-demand -- you only install what you use:
+
+```bash
+# Add a single component
+cd frontend && bunx shadcn-vue@latest add button
+
+# Add multiple components at once
+cd frontend && bunx shadcn-vue@latest add card dialog select
+```
+
+Components are installed to `frontend/app/components/ui/` and are auto-imported by Nuxt. Use them directly in templates:
+
+```vue
+<template>
+  <Button variant="outline" size="sm">Click me</Button>
+</template>
+```
+
+Dark mode is handled via `@nuxtjs/color-mode` with system preference detection. The theme uses CSS variables (neutral base color, new-york style) defined in `app/assets/css/tailwind.css`.
 
 ## Adding a New Entity (Scaffolding)
 

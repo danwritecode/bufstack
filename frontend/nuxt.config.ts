@@ -14,7 +14,20 @@ export default defineNuxtConfig({
 
   modules: [
     '@clerk/nuxt',
+    '@nuxtjs/color-mode',
+    'shadcn-nuxt',
   ],
+
+  shadcn: {
+    prefix: '',
+    componentDir: '@/components/ui',
+  },
+
+  colorMode: {
+    classSuffix: '',
+    preference: 'system',
+    fallback: 'light',
+  },
 
   vite: {
     plugins: [
