@@ -1,23 +1,27 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
-    <div class="text-center space-y-6">
-      <h1 class="text-4xl font-bold">Bufstack</h1>
-      <p class="text-muted-foreground">Rust gRPC + Nuxt 4 + Protocol Buffers</p>
-
-      <div class="space-y-4">
-        <button
-          type="button"
-          class="px-4 py-2 border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-          @click="sayHello"
-        >
+    <Card class="w-full max-w-md">
+      <CardHeader class="text-center">
+        <CardTitle class="text-4xl font-bold">Bufstack</CardTitle>
+        <CardDescription>Rust gRPC + Nuxt 4 + Protocol Buffers</CardDescription>
+      </CardHeader>
+      <CardContent class="space-y-4">
+        <Button class="w-full" @click="sayHello">
           Say Hello
-        </button>
+        </Button>
 
-        <div v-if="message" class="p-4 bg-secondary text-secondary-foreground border border-border rounded-lg">
-          {{ message }}
-        </div>
-      </div>
-    </div>
+        <Alert v-if="message">
+          <AlertTitle>Response</AlertTitle>
+          <AlertDescription>{{ message }}</AlertDescription>
+        </Alert>
+      </CardContent>
+      <CardFooter class="justify-center gap-2">
+        <Badge variant="secondary">Rust</Badge>
+        <Badge variant="secondary">gRPC</Badge>
+        <Badge variant="secondary">Nuxt 4</Badge>
+        <Badge variant="secondary">Protobuf</Badge>
+      </CardFooter>
+    </Card>
   </div>
 </template>
 

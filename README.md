@@ -85,16 +85,34 @@ bufstack/
 └── .claude/skills/   # Claude Code skills (e.g. scaffold-entity)
 ```
 
-## Adding UI Components
+## UI Components (shadcn-vue)
 
-shadcn-vue components are added on-demand -- you only install what you use:
+Bufstack uses [shadcn-vue](https://www.shadcn-vue.com/) for UI components -- accessible, composable primitives built on [Reka UI](https://reka-ui.com/) and styled with Tailwind CSS. Browse the full component library at **[shadcn-vue.com/docs/components](https://www.shadcn-vue.com/docs/components/accordion.html)**.
+
+### Pre-installed components
+
+These components are included out of the box:
+
+| Component | Usage |
+|-----------|-------|
+| `Button` | Primary actions, form submits, links |
+| `Card` | Content containers with header/content/footer sections |
+| `Badge` | Labels, tags, status indicators |
+| `Alert` | Inline messages, success/error feedback |
+| `Input` | Text inputs |
+| `Label` | Form labels |
+| `Separator` | Visual dividers |
+
+### Adding more components
+
+Components are installed on-demand -- you only add what you use:
 
 ```bash
 # Add a single component
-cd frontend && bunx shadcn-vue@latest add button
+cd frontend && bunx shadcn-vue@latest add dialog
 
 # Add multiple components at once
-cd frontend && bunx shadcn-vue@latest add card dialog select
+cd frontend && bunx shadcn-vue@latest add select tooltip dropdown-menu
 ```
 
 Components are installed to `frontend/app/components/ui/` and are auto-imported by Nuxt. Use them directly in templates:
