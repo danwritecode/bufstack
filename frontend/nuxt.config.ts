@@ -1,17 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from '@tailwindcss/vite'
 
+const clerkEnabled = process.env.NUXT_PUBLIC_CLERK_ENABLED === 'true'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
 
   runtimeConfig: {
     backendUrl: "http://localhost:50051",
-    public: {},
+    public: {
+      clerkEnabled,
+    },
   },
 
   modules: [
-    '@clerk/nuxt',
+    ...(clerkEnabled ? ['@clerk/nuxt'] : []),
     '@nuxtjs/color-mode',
     'shadcn-nuxt',
   ],

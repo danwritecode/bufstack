@@ -6,14 +6,20 @@
 </template>
 
 <script setup lang="ts">
-const { isSignedIn, getToken } = useAuth()
+const { clerkEnabled } = useRuntimeConfig().public
 
-onMounted(() => {
-  watch(isSignedIn, async (signedIn) => {
-    if (signedIn) {
-      await getToken.value()
-      navigateTo("/")
-    }
-  }, { immediate: true })
-})
+if (!clerkEnabled) {
+  navigateTo("/")
+} else {
+  const { isSignedIn, getToken } = useAuth()
+
+  onMounted(() => {
+    watch(isSignedIn, async (signedIn) => {
+      if (signedIn) {
+        await getToken.value()
+        navigateTo("/")
+      }
+    }, { immediate: true })
+  })
+}
 </script>

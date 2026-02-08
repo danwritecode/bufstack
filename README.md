@@ -151,10 +151,17 @@ If you need a service that doesn't follow the standard entity CRUD pattern:
 
 ## Enabling Auth
 
-Clerk auth middleware is included but disabled by default. To enable:
+Auth is **disabled by default** so new clones can run immediately without a Clerk account. To enable:
 
-1. Set `NUXT_CLERK_SECRET_KEY` and `NUXT_PUBLIC_CLERK_PUBLISHABLE_KEY` environment variables
-2. Uncomment the auth interceptor lines in `backend/api/src/grpc.rs`
+1. Set `NUXT_PUBLIC_CLERK_ENABLED=true` in `frontend/.env`
+2. Add your Clerk keys to `frontend/.env`:
+   ```
+   NUXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_...
+   NUXT_CLERK_SECRET_KEY=sk_...
+   ```
+3. Uncomment the auth interceptor lines in `backend/api/src/grpc.rs`
+
+When `NUXT_PUBLIC_CLERK_ENABLED` is absent or not `"true"`, the Clerk module is not loaded, auth pages show a friendly "not configured" message, and gRPC calls work without authentication.
 
 The auth middleware extracts `user_id` from Clerk JWTs and injects it into gRPC request metadata, making it available to all service implementations.
 
