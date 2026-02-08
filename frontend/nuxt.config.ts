@@ -3,14 +3,17 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
+
+  runtimeConfig: {
+    backendUrl: "http://localhost:50051",
+    public: {
+      baseUrl: "",
+    },
+  },
 
   modules: [
-    '@nuxt/scripts',
-    '@nuxt/test-utils',
-    '@nuxt/fonts',
-    '@nuxt/icon',
-    '@nuxt/eslint',
+    '@clerk/nuxt',
   ],
 
   vite: {
@@ -19,11 +22,5 @@ export default defineNuxtConfig({
     ],
   },
 
-  css: ['~/assets/tailwind.css'],
-
-  nitro: {
-    routeRules: {
-      '/rpc/**': { proxy: `${process.env.BACKEND_URL || 'http://localhost:50051'}/**` },
-    },
-  },
+  css: ['~/assets/css/tailwind.css'],
 })

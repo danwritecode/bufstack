@@ -4,27 +4,26 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --clear",
     "generate": "buf generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "check": "nuxi typecheck"
   },
   "dependencies": {
     "@bufbuild/buf": "^1.59.0",
     "@bufbuild/protobuf": "^2.10.0",
     "@bufbuild/protoc-gen-es": "^2.10.0",
-    "@connectrpc/connect": "^2.1.0",
-    "@connectrpc/connect-web": "^2.1.0",
-    "@nuxt/eslint": "1.10.0",
-    "@nuxt/fonts": "0.11.4",
-    "@nuxt/icon": "2.1.0",
-    "@nuxt/scripts": "0.13.0",
-    "@nuxt/test-utils": "3.20.1",
+    "@clerk/nuxt": "^1.13.13",
+    "@connectrpc/connect": "^2.1.1",
+    "@connectrpc/connect-node": "^2.1.1",
+    "@connectrpc/connect-web": "^2.1.1",
     "@tailwindcss/vite": "^4.1.18",
-    "@unhead/vue": "^2.0.3",
-    "eslint": "^9.0.0",
-    "nuxt": "^4.2.0",
+    "nuxt": "^4.3.0",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.18"
   }
 }

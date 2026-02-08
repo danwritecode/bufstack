@@ -1,10 +1,9 @@
 {
-  "name": "fullstackarap",
+  "name": "bufstack",
   "type": "module",
   "scripts": {
-    "dev:backend": "cd backend/api && cargo run --bin api",
-    "dev:grpc": "cd backend/api && cargo run --bin grpc-server",
+    "dev:backend": "cd backend/api && cargo run --bin grpc-server",
     "dev:frontend": "cd frontend && bun dev",
-    "dev": "concurrently \"bun run dev:backend\" \"bun run dev:frontend\" \"bun run dev:grpc\""
+    "dev": "concurrently \"bun run dev:backend\" \"bun run dev:frontend\""
   }
 }

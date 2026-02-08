@@ -1,31 +1,29 @@
 # Stage 1: Builder - Install dependencies and build application
-FROM oven/bun:1 AS builder
+FROM node:22-slim AS builder
 WORKDIR /app
 
 # Accept build argument for backend URL (defaults to Docker service name)
-ARG BACKEND_URL=http://lifemanual-backend:50051
-ENV BACKEND_URL=${BACKEND_URL}
+ARG NUXT_BACKEND_URL=http://bs-backend:50051
+ENV NUXT_BACKEND_URL=${NUXT_BACKEND_URL}
+
+# Install Bun for dependency management
+RUN npm install -g bun
 
 # Copy package files for dependency installation
-COPY frontend/package.json frontend/bun.lockb ./
+COPY frontend/package.json ./
 
-# Install dependencies (this layer will be cached)
-RUN bun install --frozen-lockfile
+# Install dependencies (skip postinstall since nuxt.config.ts isn't copied yet)
+RUN bun install
 
 # Copy application source code and configuration
+# Note: Generated protobuf code (app/gen/) is already committed to the repo
 COPY frontend/ .
 
-# Copy protobuf files (needed for buf generation)
-COPY protos/ /protos
-
-# Generate protobuf TypeScript/JavaScript code
-RUN bun generate
-
-# Build the Nuxt application for production
-RUN bun run build
+# Run nuxt prepare now that source files are available, then build
+RUN npx nuxt build
 
 # Stage 2: Runtime - Minimal runtime image
-FROM oven/bun:1-slim AS runtime
+FROM node:22-slim AS runtime
 WORKDIR /app
 
 # Copy the built application from builder
@@ -37,5 +35,5 @@ EXPOSE 3000
 # Set environment to production
 ENV NODE_ENV=production
 
-# Run the Nuxt server
-CMD ["bun", "run", ".output/server/index.mjs"]
+# Run the Nuxt server with Node.js
+CMD ["node", ".output/server/index.mjs"]

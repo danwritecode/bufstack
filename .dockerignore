@@ -2,6 +2,13 @@
 .git/
 .gitignore
 
+# Dependencies and build artifacts
+frontend/node_modules/
+frontend/.nuxt/
+frontend/.output/
+frontend/dist/
+backend/target/
+
 # IDE and editor files
 .vscode/
 .idea/
@@ -34,3 +41,5 @@ docker-compose*.yml
 # CI/CD
 .github/
 .gitlab-ci.yml
+
+*.pem

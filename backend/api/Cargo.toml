@@ -5,20 +5,30 @@ edition = "2024"
 
 [dependencies]
 axum = "0.8.6"
+axum-extra = { version = "0.12.5", features = ["cookie"] }
 anyhow = { workspace = true }
 dotenv = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
 tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
 prost = "0.14.1"
 tonic = "0.14.2"
+tonic-middleware = "0.4.0"
 tonic-prost = "0.14.2"
 tonic-web = "0.14.2"
 tower-http = { version = "0.6.6", features = ["cors"] }
+clerk-rs = { version = "0.4.2", features = ["axum"] }
+tower-cookies = "0.11.0"
+
+data = { path = "../data" }
+services = { path = "../services" }
 
 [build-dependencies]
 tonic-prost-build = "0.14.2"
 
-[[bin]] # Bin to run the HelloWorld gRPC server
+[[bin]]
 name = "grpc-server"
 path = "src/grpc.rs"
