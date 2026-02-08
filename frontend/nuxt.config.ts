@@ -7,9 +7,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     backendUrl: "http://localhost:50051",
-    public: {
-      baseUrl: "",
-    },
+    public: {},
   },
 
   modules: [
@@ -31,7 +29,7 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [
-      tailwindcss()
+      tailwindcss() as any
     ],
   },
 

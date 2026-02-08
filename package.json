@@ -4,6 +4,6 @@
   "scripts": {
     "dev:backend": "cd backend/api && cargo run --bin grpc-server",
     "dev:frontend": "cd frontend && bun dev",
-    "dev": "concurrently \"bun run dev:backend\" \"bun run dev:frontend\""
+    "dev": "bash scripts/dev.sh"
   }
 }

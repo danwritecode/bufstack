@@ -47,6 +47,7 @@ dependencies = [
  "serde_json",
  "services",
  "tokio",
+ "tokio-stream",
  "tonic",
  "tonic-middleware",
  "tonic-prost",

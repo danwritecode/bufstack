@@ -18,6 +18,7 @@ prost = "0.14.1"
 tonic = "0.14.2"
 tonic-middleware = "0.4.0"
 tonic-prost = "0.14.2"
+tokio-stream = "0.1"
 tonic-web = "0.14.2"
 tower-http = { version = "0.6.6", features = ["cors"] }
 clerk-rs = { version = "0.4.2", features = ["axum"] }

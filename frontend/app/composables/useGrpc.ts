@@ -31,12 +31,10 @@ export async function useGrpcClient<T extends DescService>(
     });
     return createClient(service, transport);
   } else {
-    const config = useRuntimeConfig()
-
     if (!clientTransport) {
       const { createGrpcWebTransport } = await import("@connectrpc/connect-web");
       clientTransport = createGrpcWebTransport({
-        baseUrl: `${config.public.baseUrl}/api/rpc`,
+        baseUrl: '/api/rpc',
         interceptors: cachedGetToken ? [
           (next) => async (req) => {
             await cachedGetToken!.value()
