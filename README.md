@@ -66,6 +66,34 @@ bun run dev
 
 The backend runs on `http://localhost:50060` (gRPC) and the frontend on `http://localhost:3000`. No Clerk account is needed -- auth is disabled by default (see [Enabling Auth](#enabling-auth)).
 
+## Development
+
+### Testing
+
+Bufstack uses [Vitest](https://vitest.dev/) for frontend unit tests:
+
+```bash
+cd frontend
+bun run test        # Watch mode
+bun run test:run    # Single run (CI)
+```
+
+Test files live next to their source in `__tests__/` directories:
+```
+app/pages/__tests__/index.test.ts      # tests for app/pages/index.vue
+app/components/__tests__/Foo.test.ts   # tests for app/components/Foo.vue
+```
+
+### Linting
+
+[ESLint](https://eslint.org/) with [`@nuxt/eslint`](https://eslint.nuxt.com/) flat config:
+
+```bash
+cd frontend
+bun run lint        # Check for issues
+bun run lint:fix    # Auto-fix issues
+```
+
 ## Project Structure
 
 ```

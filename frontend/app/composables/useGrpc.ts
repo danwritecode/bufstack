@@ -19,7 +19,7 @@ export async function useGrpcClient<T extends DescService>(
     const headers = useRequestHeaders(['cookie', 'authorization']);
     const { createGrpcTransport } = await import("@connectrpc/connect-node");
     const transport = createGrpcTransport({
-      // @ts-ignore
+      // @ts-expect-error -- backendUrl comes from runtimeConfig
       baseUrl: process.env.NUXT_BACKEND_URL,
       interceptors: [
         (next) => async (req) => {
