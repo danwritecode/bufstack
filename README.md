@@ -47,17 +47,24 @@ Clerk      Clerk
 ## Quick Start
 
 ```bash
-# Install frontend dependencies
+# 1. Copy example env files
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
+
+# 2. Update backend/.env with your absolute path to the database
+#    DATABASE_URL=sqlite:///your/path/to/bufstack/backend/data.db
+
+# 3. Install frontend dependencies
 cd frontend && bun install && cd ..
 
-# Generate TypeScript types from protos
+# 4. Generate TypeScript types from protos
 cd frontend && bun run generate && cd ..
 
-# Start both backend and frontend
+# 5. Start both backend and frontend
 bun run dev
 ```
 
-The backend runs on `http://localhost:50051` (gRPC) and the frontend on `http://localhost:3000`.
+The backend runs on `http://localhost:50060` (gRPC) and the frontend on `http://localhost:3000`. No Clerk account is needed -- auth is disabled by default (see [Enabling Auth](#enabling-auth)).
 
 ## Project Structure
 
@@ -172,7 +179,7 @@ If you need a service that doesn't follow the standard entity CRUD pattern:
 Auth is **disabled by default** so new clones can run immediately without a Clerk account. To enable:
 
 1. Set `NUXT_PUBLIC_CLERK_ENABLED=true` in `frontend/.env`
-2. Add your Clerk keys to `frontend/.env`:
+2. Uncomment and fill in the Clerk keys in `frontend/.env` (see `frontend/.env.example` for the full template):
    ```
    NUXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_...
    NUXT_CLERK_SECRET_KEY=sk_...
